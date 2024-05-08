@@ -15,8 +15,8 @@ A step by step series of examples that tell you how to get a development environ
 
 1. Clone the repository.
 
-   git clone https://github.com/yourusername/your-repository-name.git
-   cd your-repository-name
+   git clone https://github.com/RuwanSudheera/pharmacy-api
+   cd pharmacy-api
 
 2. set .env.
 
