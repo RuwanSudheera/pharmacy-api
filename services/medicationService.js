@@ -42,26 +42,24 @@ exports.updateMedication = (id, medicationData) => {
     });
 };
 
-exports.deleteMedication = (id, userRole) => {
-    if (userRole === "admin") {
-        // Permanent delete for Owner
-        return new Promise((resolve, reject) => {
-            const sql = 'DELETE FROM medications WHERE id = ?';
-            db.run(sql, id, function(err) {
-                if (err) reject(err);
-                else resolve({ message: 'Medication permanently deleted' });
-            });
+exports.permanentDeleteMedication = (id) => {
+    return new Promise((resolve, reject) => {
+        const sql = 'DELETE FROM medications WHERE id = ?';
+        db.run(sql, id, function(err) {
+            if (err) reject(err);
+            else resolve({ message: 'Medication permanently deleted' });
         });
-    } else {
-        // Soft delete for other roles
-        return new Promise((resolve, reject) => {
-            const sql = 'UPDATE medications SET deleted = 1 WHERE id = ?';
-            db.run(sql, id, function(err) {
-                if (err) reject(err);
-                else resolve({ message: 'Medication soft deleted' });
-            });
+    });
+};
+
+exports.deleteMedication = (id) => {
+    return new Promise((resolve, reject) => {
+        const sql = 'UPDATE customers SET deleted = 1 WHERE id = ?';
+        db.run(sql, id, function(err) {
+            if (err) reject(err);
+            else resolve({ message: 'Customer soft deleted' });
         });
-    }
+    });
 };
 
 exports.undeleteMedication = (id) => {

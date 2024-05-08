@@ -17,6 +17,7 @@ app.use('/medications', medicationRoutes);
 app.use('/medicines', medicineRoutes);
 app.use('/customers', customerRoutes);
 
+//system health check
 app.get('/', (req, res) => {
     res.send('Welcome to the Pharmacy Management System');
 });

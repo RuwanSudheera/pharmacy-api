@@ -8,6 +8,7 @@ router.get('/:id', verifyToken, customerController.getCustomer);
 router.get('/', verifyToken, customerController.getAllCustomers);
 router.put('/:id', verifyToken, customerController.updateCustomer);
 router.delete('/:id', verifyToken, customerController.deleteCustomer);
+router.delete('/permanent/:id', verifyToken, customerController.permanentDeleteCustomer);
 router.post('/:id/undelete', verifyToken, customerController.undeleteCustomer);
 
 module.exports = router;

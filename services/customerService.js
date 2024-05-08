@@ -42,27 +42,25 @@ exports.updateCustomer = (id, customerData) => {
     });
 };
 
-exports.deleteCustomer = (id, userRole) => {
-    if (userRole === "admin") {
-        // Permanent delete for Owner
-        return new Promise((resolve, reject) => {
-            const sql = 'DELETE FROM customers WHERE id = ?';
-            db.run(sql, id, function(err) {
-                if (err) reject(err);
-                else resolve({ message: 'Customer permanently deleted' });
-            });
+exports.deleteCustomer = (id) => {
+    return new Promise((resolve, reject) => {
+        const sql = 'UPDATE customers SET deleted = 1 WHERE id = ?';
+        db.run(sql, id, function(err) {
+            if (err) reject(err);
+            else resolve({ message: 'Customer soft deleted' });
         });
-    } else {
-        // Soft delete for other roles
-        return new Promise((resolve, reject) => {
-            const sql = 'UPDATE customers SET deleted = 1 WHERE id = ?';
-            db.run(sql, id, function(err) {
-                if (err) reject(err);
-                else resolve({ message: 'Customer soft deleted' });
-            });
-        });
-    }
+    });
 };
+
+exports.permanentDeleteCustomer = (id) => {
+    return new Promise((resolve, reject) => {
+        const sql = 'DELETE FROM customers WHERE id = ?';
+        db.run(sql, id, function(err) {
+            if (err) reject(err);
+            else resolve({ message: 'Customer permanently deleted' });
+        });
+    });
+}
 
 exports.undeleteCustomer = (id) => {
     return new Promise((resolve, reject) => {
